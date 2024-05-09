@@ -146,6 +146,24 @@ def goto(dNorth, dEast, gotoFunction = vehicle.simple_goto):
         if x==10:
         	break;
 
+def condition_yaw(heading, relative=False):
+    if relative:
+        is_relative=1 #yaw relative to direction of travel
+    else:
+        is_relative=0 #yaw is an absolute angle
+    # create the CONDITION_YAW command using command_long_encode()
+    msg = vehicle.message_factory.command_long_encode(
+        0, 0,    # target system, target component
+        mavutil.mavlink.MAV_CMD_CONDITION_YAW, #command
+        0, #confirmation
+        heading,    # param 1, yaw in degrees
+        0,          # param 2, yaw speed deg/s
+        1,          # param 3, direction -1 ccw, 1 cw
+        is_relative, # param 4, relative offset 1, absolute angle 0
+        0, 0, 0)    # param 5 ~ 7 not used
+    # send command to vehicle
+    vehicle.send_mavlink(msg)
+
 rows1 =[] #Rows for storing coarse positioning data
 rows2 =[] #Rows for storiing fine positioning data
 lz = (0,0,0) #Landing zone for the drones and payload
@@ -181,8 +199,8 @@ while True:
             rows2.append(row)
 
         location2 = (rows2[-1])
+        condition_yaw(0)
         send_global_velocity(float(location2[0]),float(location2[2]),float(location2[2]),1)
-        time.sleep(0.5)
     elif attachment == 1: #Limit switch has indicated attachment
         break
 
