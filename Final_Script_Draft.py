@@ -164,6 +164,10 @@ def condition_yaw(heading, relative=False):
     # send command to vehicle
     vehicle.send_mavlink(msg)
 
+def RealSense_Code():
+    aruco == 0
+    #Add more code here
+
 rows1 =[] #Rows for storing coarse positioning data
 rows2 =[] #Rows for storiing fine positioning data
 lz = (0,0,0) #Landing zone for the drones and payload
@@ -182,6 +186,7 @@ aruco = 0 #Aruco marker starts as undetected
 attachment = 0 #starts unattached
 
 while True:
+    RealSense_Code() #Run the RealSense helper function
     if aruco == 0: #Aruco marker not detected
         csvreader1 = csv.reader(Taxes) #Open the csv file containing Taxes' Location Data
         for row in csvreader1:
