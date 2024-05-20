@@ -8,7 +8,7 @@ import csv
 
 #vehicle = connect('/dev/ttyAMA0', wait_ready=True, baud=57600)
 
-vehicle1 = connect('com7', baud=115200)
+vehicle1 = connect('com7', baud=57600)
 vehicle = connect('com4', baud=57600)
 print(vehicle1.mode)
 print(vehicle.mode)
