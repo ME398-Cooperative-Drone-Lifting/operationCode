@@ -9,20 +9,21 @@ Code for Running on Drone-Hub system
 # To operate the RealSense camera in this framework:
 ## Prerequisites (single-time setup) [estimated time: 1-1.5 hours]
 - Install Ubuntu 22.04 on a Raspberry Pi 4B (we have 8 GB RAM, your mileage may vary with less)
-- Connect the Pi to WiFi
+- Extend the USBfs buffer size to 2048 MB:
+    - Add `usbcore.usbfs_memory_mb=2048` to the `cmdline.txt` file in the `/boot/` directory (using sd card adapter)
+- Boot up the Pi, set it up, and connect the Pi to WiFi using any necessary certificates copied onto the main disk
 - Update all system programs with `sudo apt-get update && sudo apt-get upgrade`
 - Install Python's `pip` module with `sudo apt-get install -y python3-pip`
-- Install Python 3.7 with the following steps:
-    - `sudo add-apt-repository ppa:deadsnakes/ppa`
-    - `sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1`
+- ~~Install Python 3.7 with the following steps:~~
+    - ~~`sudo add-apt-repository ppa:deadsnakes/ppa`~~
+    - ~~`sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1`~~
 - Install `openssh-server` with `sudo apt-get -y install openssh-server` on the Pi 4
     - Once the SSH server is set up, check the IP address in Settings/WiFi and write it down for recurring use in the execution section
 - Install `video4linux` drivers with `sudo apt-get -y install v4l-utils`, required to assign udev rules
 - Install the RealSense SDK 2.0 on the Pi 4. Follow the instructions [here](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md), taking care not to install the kernel patches.
 - Install opencv-contrib-python (includes additional libraries) with `pip3 install opencv-contrib-python`
 - Install the Python RealSense bindings with `pip3 install pyrealsense2`
-- Extend the USBfs buffer size to 2048 MB:
-    - Add `usbcore.usbfs_memory_mb=2048` to the `cmdline.txt` file in the `/boot/` directory (using sd card adapter)
+- Install DroneKit with `pip3 install dronekit`
 
 ## Execution (must be repeated each time)
 - `ssh` into the Pi with the following argument:
