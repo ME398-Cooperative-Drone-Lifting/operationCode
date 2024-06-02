@@ -6,6 +6,9 @@ import math
 from pymavlink import mavutil
 import csv
 
+from realsenseOps.mainIR_mult import activate_camera_and_align_frames, process_images_and_ids, process_markers
+import cv2
+
 def arm_and_takeoff_death(aTargetAltitude):
     """
     Arms vehicle and fly to aTargetAltitude.
@@ -170,8 +173,6 @@ Taxes = open('Taxes_Location.csv')
 type(Taxes)
 RealSense = open('RealSense_Data.csv')
 type(RealSense)
-    
-    
 
 arm_and_takeoff_taxes(1)
 arm_and_takeoff_death(4)
