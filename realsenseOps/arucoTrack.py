@@ -50,6 +50,7 @@ def process_markers(corners: List[np.ndarray], ids: List[int], aligned_depth_fra
             markedImage = cv2.aruco.drawDetectedMarkers(arucoimage, [corners[i]], np.array([ids[i]]))                    
             cv2.circle(markedImage, tuple(marker_center), 5, (0, 0, 255), cv2.FILLED)
             depth = aligned_depth_frame.get_distance(*marker_center)
+            global death_point_in_meters_camera_coords
             depth_point_in_meters_camera_coords = rs.rs2_deproject_pixel_to_point(depth_intrin, marker_center, depth)
             angle = GetRelativeYaw(markerCorners)
 
@@ -142,8 +143,7 @@ def arucoTrack() -> Tuple: # figure out what kind of outputs we want...float loc
 
             stepCounter += 1
 
-            # return vals of interest? log them somehow? TBD!
-            return markerInfoList
+        
 
     finally:
         pipeline.stop()

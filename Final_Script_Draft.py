@@ -8,8 +8,6 @@ import csv
 
 from realsenseOps.arucoTrack import arucoTrack
 
-global detection
-detection = 0 #Aruco marker starts as undetected
 arucoTrack()
 
 def arm_and_takeoff_death(aTargetAltitude):
@@ -182,7 +180,7 @@ time.sleep(1)
 attachment = 0 #starts unattached
 
 while True:
-    if detection == 0: #Aruco marker not detected
+    if arucoTrack.detection == 0: #Aruco marker not detected
         csvreader1 = csv.reader(Taxes) #Open the csv file containing Taxes' Location Data
         for row in csvreader1:
             rows1.append(row)
@@ -192,16 +190,11 @@ while True:
         Death.simple_goto(point, groundspeed=1)
         print("Locating Taxes")
         time.sleep(1)
-    elif detection == 1: #Aruco marker detected
+    elif arucoTrack.detection == 1: #Aruco marker detected
         print("RealSense Stepping")
-        csvreader2 = csv.reader(RealSense) #Open the csv file containing RealSense Instructions
-        for row in csvreader2:
-            rows2.append(row)
-
-        location2 = (rows2[-1])
         condition_yaw_death(0)
         condition_yaw_taxes(0)
-        send_global_velocity_death(float(location2[0]),float(location2[2]),float(location2[2]),1)
+        send_global_velocity_death(float(arucoTrack.depth_point_in_meters_camera_coords[0]),float(arucoTrack.depth_point_in_meters_camera_coords[2]),float(arucoTrack.depth_point_in_meters_camera_coords[2]),1)
     elif attachment == 1: #Limit switch has indicated attachment
         break
 
