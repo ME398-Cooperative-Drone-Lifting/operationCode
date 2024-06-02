@@ -1,3 +1,6 @@
+'''
+TO USE THIS CODE, GET MAIN() FUNCTION INTO YOUR SCRIPT!
+'''
 import pyrealsense2 as rs
 import numpy as np
 import cv2
@@ -39,6 +42,7 @@ def detect_markers(arucoimage: np.ndarray, arucoDict: Any, arucoParams: Any) -> 
     return corners, ids, rejected
 
 def process_markers(corners: List[np.ndarray], ids: List[int], aligned_depth_frame: rs.depth_frame, depth_intrin: rs.intrinsics, arucoimage: np.ndarray) -> np.ndarray:
+    markerInfoList = []
     for i in range(len(ids)):
         markerCorners = corners[i][0]
         if markerCorners.size > 0:
@@ -48,12 +52,18 @@ def process_markers(corners: List[np.ndarray], ids: List[int], aligned_depth_fra
             depth = aligned_depth_frame.get_distance(*marker_center)
             depth_point_in_meters_camera_coords = rs.rs2_deproject_pixel_to_point(depth_intrin, marker_center, depth)
             angle = GetRelativeYaw(markerCorners)
-            print("\nMarker ID:", ids[i])
-            print("Corners:", markerCorners)
-            print("Center:", marker_center)
-            print("Coordinate in camera frame:", depth_point_in_meters_camera_coords)
-            print("Angle:", angle)
-    return markedImage
+
+            # # Print marker information to console for testing/status checking
+            # print("\nMarker ID:", ids[i])
+            # print("Corners:", markerCorners)
+            # print("Center:", marker_center)
+            # print("Coordinate in camera frame:", depth_point_in_meters_camera_coords)
+            # print("Angle:", angle)
+
+            markerInfo = [ids[i], marker_center, depth_point_in_meters_camera_coords, angle]
+            markerInfoList.append(markerInfo)
+
+    return markedImage, markerInfoList
 
 def display_image(disp_image: np.ndarray) -> None:
     cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
@@ -64,7 +74,7 @@ def main() -> Any: # figure out what kind of outputs we want...float locations o
     (arucoDict, arucoParams, detector) = CreateDetector()
     (pipeline,align) = StartRealSense()
 
-    print('RealSense camera activated...')
+    print('RealSense camera activated, waiting for pipeline...')
 
     imageResized = False
     stepCounter = 0
@@ -110,7 +120,12 @@ def main() -> Any: # figure out what kind of outputs we want...float locations o
             corners, ids, rejected = detect_markers(arucoimage, arucoDict, arucoParams)
 
             if ids is not None and len(ids) > 0:
-                markedImage = process_markers(corners, ids, aligned_depth_frame, depth_intrin, arucoimage)
+                markedImage, markerInfoList = process_markers(corners, ids, aligned_depth_frame, depth_intrin, arucoimage)
+
+                # Print marker information to console for testing/status checking
+                # Structure: [ids[i], marker_center, depth_point_in_meters_camera_coords, angle]
+                print('ID: {}, Center: {}, Depth: {}, Angle: {}'.format(markerInfoList[0][0], markerInfoList[0][1], markerInfoList[0][2], markerInfoList[0][3]))
+
                 markedImage = cv2.cvtColor(markedImage, cv2.COLOR_GRAY2BGR)
                 disp_image = np.hstack((markedImage, depth_colormap))
             else:
@@ -124,9 +139,10 @@ def main() -> Any: # figure out what kind of outputs we want...float locations o
             stepCounter += 1
 
             # return vals of interest? log them somehow? TBD!
-               
+
     finally:
         pipeline.stop()
+        print('\nRealSense camera deactivated, pipeline stopped...')
 
 if __name__ == "__main__":
     main()
