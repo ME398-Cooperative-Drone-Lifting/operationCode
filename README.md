@@ -11,7 +11,11 @@ Code for Running on Drone-Hub system
 - Install Ubuntu 22.04 on a Raspberry Pi 4B (we have 8 GB RAM, your mileage may vary with less)
 - Extend the USBfs buffer size to 2048 MB:
     - Add `usbcore.usbfs_memory_mb=2048` to the `cmdline.txt` file in the `/boot/` directory (using sd card adapter)
-- Boot up the Pi, set it up, and connect the Pi to WiFi using any necessary certificates copied onto the main disk
+- Boot up the Pi and set it up without WiFi
+- Once you're at the main desktop and logged in properly, connect the Pi to WiFi
+    - Copy the certificate from the thumb drive onto the Pi desktop
+    - Go to settings, select eduroam, select Protected EAP, upload certificate, set MSCHAPv2, add your username and password
+    - Username: `netid@u.northwestern.edu`, password: `yourpassword`
 - Update all system programs with `sudo apt-get update && sudo apt-get upgrade`
 - Install Python's `pip` module with `sudo apt-get install -y python3-pip`
 - ~~Install Python 3.7 with the following steps:~~
