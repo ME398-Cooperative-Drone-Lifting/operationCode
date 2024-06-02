@@ -146,4 +146,6 @@ def arucoTrack() -> Any: # figure out what kind of outputs we want...float locat
 
 # executes arucoTrack if the code is being run directly, otherwise the function can be imported
 if __name__ == "__main__":
+    import sys
+    print('Python version:', sys.version, '\n')
     arucoTrack()
