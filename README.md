@@ -1,8 +1,8 @@
 # Operation Code
- Code for Running on Drone-Hub system
+Code for Running on Drone-Hub system
 
 
-To operate the RealSense camera in this framework:
+# To operate the RealSense camera in this framework:
 ## Prerequisites (single-time setup) [estimated time: 1-1.5 hours]
 - Connect the Pi to WiFi
 - Update all system programs with `sudo apt-get update && sudo apt-get upgrade`
