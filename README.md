@@ -1,6 +1,10 @@
 # Operation Code
 Code for Running on Drone-Hub system
 
+# To port the DroneKit operation code to Python 3.10 or newer:
+- On macOS, go to `/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/dronekit/init.py` or the equivalent version for your Python installation
+- Change `class Parameters(collections.MutableMapping, HasObservers):` to `class Parameters(collections.abc.MutableMapping, HasObservers):` (add the .abc. between collections and MutableMapping)
+
 
 # To operate the RealSense camera in this framework:
 ## Prerequisites (single-time setup) [estimated time: 1-1.5 hours]
