@@ -70,7 +70,7 @@ def display_image(disp_image: np.ndarray) -> None:
     cv2.imshow('RealSense', disp_image)
     cv2.waitKey(10)
 
-def main() -> Any: # figure out what kind of outputs we want...float locations of centrepoints?
+def arucoTrack() -> Any: # figure out what kind of outputs we want...float locations of centrepoints?
     (arucoDict, arucoParams, detector) = CreateDetector()
     (pipeline,align) = StartRealSense()
 
@@ -144,5 +144,6 @@ def main() -> Any: # figure out what kind of outputs we want...float locations o
         pipeline.stop()
         print('\nRealSense camera deactivated, pipeline stopped...')
 
+# executes arucoTrack if the code is being run directly, otherwise the function can be imported
 if __name__ == "__main__":
-    main()
+    arucoTrack()

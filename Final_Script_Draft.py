@@ -6,8 +6,9 @@ import math
 from pymavlink import mavutil
 import csv
 
-from realsenseOps.mainIR_mult import activate_camera_and_align_frames, process_images_and_ids, process_markers
-import cv2
+# from realsenseOps.realsenseOp import arucoTrack
+
+# arucoTrack()
 
 def arm_and_takeoff_death(aTargetAltitude):
     """
