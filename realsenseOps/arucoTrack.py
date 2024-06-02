@@ -70,12 +70,12 @@ def display_image(disp_image: np.ndarray) -> None:
     cv2.imshow('RealSense', disp_image)
     cv2.waitKey(10)
 
-def arucoTrack() -> Any: # figure out what kind of outputs we want...float locations of centrepoints?
+def arucoTrack() -> Tuple: # figure out what kind of outputs we want...float locations of centrepoints?
     (arucoDict, arucoParams, detector) = CreateDetector()
     (pipeline,align) = StartRealSense()
 
     print('RealSense camera activated, waiting for pipeline...')
-
+    global detection
     imageResized = False
     stepCounter = 0
 
@@ -121,6 +121,8 @@ def arucoTrack() -> Any: # figure out what kind of outputs we want...float locat
 
             if ids is not None and len(ids) > 0:
                 markedImage, markerInfoList = process_markers(corners, ids, aligned_depth_frame, depth_intrin, arucoimage)
+                detection = 1
+                
 
                 # Print marker information to console for testing/status checking
                 # Structure: [ids[i], marker_center, depth_point_in_meters_camera_coords, angle]
@@ -129,6 +131,8 @@ def arucoTrack() -> Any: # figure out what kind of outputs we want...float locat
                 markedImage = cv2.cvtColor(markedImage, cv2.COLOR_GRAY2BGR)
                 disp_image = np.hstack((markedImage, depth_colormap))
             else:
+                detection = 0
+
                 if imageResized:
                     disp_image = np.hstack((resized_ir_image, depth_colormap))
                 else:
@@ -139,6 +143,7 @@ def arucoTrack() -> Any: # figure out what kind of outputs we want...float locat
             stepCounter += 1
 
             # return vals of interest? log them somehow? TBD!
+            return markerInfoList
 
     finally:
         pipeline.stop()

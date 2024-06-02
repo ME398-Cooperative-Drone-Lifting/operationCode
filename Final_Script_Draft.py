@@ -6,9 +6,11 @@ import math
 from pymavlink import mavutil
 import csv
 
-# from realsenseOps.realsenseOp import arucoTrack
+from realsenseOps.arucoTrack import arucoTrack
 
-# arucoTrack()
+global detection
+detection = 0 #Aruco marker starts as undetected
+arucoTrack()
 
 def arm_and_takeoff_death(aTargetAltitude):
     """
@@ -160,10 +162,6 @@ def condition_yaw_taxes(heading, relative=False):
     # send command to vehicle
     Taxes.send_mavlink(msg)
 
-def RealSense_Code():
-    aruco == 0
-    #Add more code here
-
 Death = connect('/dev/ttyAMA0', wait_ready=True, baud=57600)
 Taxes = connect('/dev/ttyUSB0', baud=57600)
 
@@ -181,12 +179,10 @@ Taxes.mode = VehicleMode("STABILIZE")
 Death.mode = VehicleMode("GUIDED")
 time.sleep(1)
 
-aruco = 0 #Aruco marker starts as undetected
 attachment = 0 #starts unattached
 
 while True:
-    RealSense_Code() #Run the RealSense helper function
-    if aruco == 0: #Aruco marker not detected
+    if detection == 0: #Aruco marker not detected
         csvreader1 = csv.reader(Taxes) #Open the csv file containing Taxes' Location Data
         for row in csvreader1:
             rows1.append(row)
@@ -196,7 +192,7 @@ while True:
         Death.simple_goto(point, groundspeed=1)
         print("Locating Taxes")
         time.sleep(1)
-    elif aruco == 1: #Aruco marker detected
+    elif detection == 1: #Aruco marker detected
         print("RealSense Stepping")
         csvreader2 = csv.reader(RealSense) #Open the csv file containing RealSense Instructions
         for row in csvreader2:
