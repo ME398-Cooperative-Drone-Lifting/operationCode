@@ -31,7 +31,7 @@ Code for Running on Drone-Hub system
 ### Execution (must be repeated each time)
 - `ssh` into the Pi with the following argument:
     - `ssh -X pi@<ip_address>` (replace `<ip_address>` with the Pi's IP address)
-- `cd` into `librealsense/customCode/arucoTracking/`
+- Go to the proper directory with `cd operationCode/realsenseOps/`
 - Set up the RealSense display with `export DISPLAY=:0`
 - Run `rs-enumerate-devices` to prime the RealSense USB buffer (mysterious, please do not ask why this works)
 - Run the DroneKit code OR directly run the RealSense script with `python3 arucoTrack.py`
