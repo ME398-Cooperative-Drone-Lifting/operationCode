@@ -23,10 +23,11 @@ Code for Running on Drone-Hub system
 - Install `openssh-server` with `sudo apt-get -y install openssh-server` on the Pi 4
     - Once the SSH server is set up, check the IP address in Settings/WiFi and write it down for recurring use in the execution section
 - Install `video4linux` drivers with `sudo apt-get -y install v4l-utils`, required to assign udev rules
+- Install DroneKit with `python3.7 -m pip install dronekit`
+#### If you are installing the RealSense SDK:
 - Install the RealSense SDK 2.0 on the Pi 4. Follow the instructions [here](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md), taking care not to install the kernel patches.
-- Install opencv-contrib-python (includes additional libraries) with `pip3 install opencv-contrib-python`
-- Install the Python RealSense bindings with `pip3 install pyrealsense2`
-- Install DroneKit with `pip3 install dronekit`
+- Install opencv-contrib-python (includes additional libraries) with `python3.7 -m pip install opencv-contrib-python`
+- Install the Python RealSense bindings with `python3.7 -m pip install pyrealsense2`
 
 ### Execution (must be repeated each time)
 - `ssh` into the Pi with the following argument:
