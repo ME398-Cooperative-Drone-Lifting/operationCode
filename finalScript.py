@@ -33,7 +33,7 @@ time.sleep(1)
 attachment = 0 #starts unattached
 
 while True:
-    user_input = input("Press any key to continue, or 'q' to quit: ")
+    user_input = input("Type `connected` when the drones are connected, or type `exit` to quit the script: ")
     if user_input.lower() == 'exit':
         break
     elif user_input.lower() == 'connected':
