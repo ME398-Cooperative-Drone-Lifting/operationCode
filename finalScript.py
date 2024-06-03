@@ -1,6 +1,6 @@
 from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
 import time
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import math
 from pymavlink import mavutil
 import csv
@@ -17,20 +17,14 @@ Death = connect('/dev/ttyAMA0', wait_ready=True, baud=57600)
 Taxes = connect('/dev/ttyUSB0', baud=57600)
 
 rows1 =[] # Rows for storing coarse positioning data
-rows2 =[] # Rows for storiing fine positioning data
-lz = (0,0,0) # Landing zone for the drones and payload
 Taxes = open('Taxes_Location.csv')
 type(Taxes)
-RealSense = open('RealSense_Data.csv')
-type(RealSense)
 
 arm_and_takeoff(1, Taxes)
 arm_and_takeoff(4, Death)
 Taxes.mode = VehicleMode("STABILIZE")
 Death.mode = VehicleMode("GUIDED")
 time.sleep(1)
-
-attachment = 0 #starts unattached
 
 while True:
     user_input = input("Type `connected` when the drones are connected, or type `exit` to quit the script: ")
