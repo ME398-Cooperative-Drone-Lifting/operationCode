@@ -1,9 +1,6 @@
-from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
+from dronekit import VehicleMode
 import time
-import RPi.GPIO as GPIO
-import math
 from pymavlink import mavutil
-import csv
 
 def arm_and_takeoff(aTargetAltitude, droneID):
     """

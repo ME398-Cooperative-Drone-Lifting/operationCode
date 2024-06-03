@@ -1,17 +1,9 @@
-from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
+from dronekit import connect, VehicleMode, LocationGlobalRelative
 import time
-#import RPi.GPIO as GPIO
-import math
-from pymavlink import mavutil
 import csv
 
 from realsenseOps.arucoTrack import arucoTrack
 from finalScriptHelpers import arm_and_takeoff, send_global_velocity, condition_yaw
-
-# # not doing limit switch :(
-# GPIO.setmode(GPIO.BOARD)
-# button_pin = 16 # GPIO pin we set the switch 
-# GPIO.setup(button_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 Death = connect('/dev/ttyAMA0', wait_ready=True, baud=57600)
 Taxes = connect('/dev/ttyUSB0', baud=57600)
@@ -29,10 +21,12 @@ time.sleep(1)
 while True:
     user_input = input("Type `connected` when the drones are connected, or type `exit` to quit the script: ")
     if user_input.lower() == 'exit':
+        # Prematurely exit (instruct both drones to land immediately)
         break
     elif user_input.lower() == 'connected':
         print("Death Connected")
         print("Taxes Connected")
+        break
     else:
         if arucoTrack.detection == 0: # Aruco marker not detected
             csvreader1 = csv.reader(Taxes) # Open the csv file containing Taxes' Location Data
