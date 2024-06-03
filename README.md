@@ -7,7 +7,11 @@ Code for Running on Drone-Hub system
 
 
 # To operate the RealSense camera in this framework:
-## Prerequisites (single-time setup) [estimated time: 1-1.5 hours]
+## Option 1: Restore from image backup
+- Do not even think about doing this without Benjamin's help!
+
+## Option 2: Set up from scratch
+### Prerequisites (single-time setup) [estimated time: 1-1.5 hours]
 - Install Ubuntu 22.04 on a Raspberry Pi 4B (we have 8 GB RAM, your mileage may vary with less)
 - Extend the USBfs buffer size to 2048 MB:
     - Add `usbcore.usbfs_memory_mb=2048` to the `cmdline.txt` file in the `/boot/` directory (using sd card adapter)
@@ -29,7 +33,7 @@ Code for Running on Drone-Hub system
 - Install the Python RealSense bindings with `pip3 install pyrealsense2`
 - Install DroneKit with `pip3 install dronekit`
 
-## Execution (must be repeated each time)
+### Execution (must be repeated each time)
 - `ssh` into the Pi with the following argument:
     - `ssh -X pi@<ip_address>` (replace `<ip_address>` with the Pi's IP address)
 - `cd` into `librealsense/customCode/arucoTracking/`
@@ -39,7 +43,7 @@ Code for Running on Drone-Hub system
 - If necessary, close the script with CTRL+C
 - If you want to run either script again, you *must* run `rs-enumerate-devices` again before execution!
 
-## Troubleshooting
+### Troubleshooting
 - If the connection times out, unplug the RealSense camera, wait 3-5 seconds, and then replug in the other USB 3.0 port
 - The scripts will *likely* work if `rs-enumerate-devices` yields an immediate response
     - If `rs-enumerate-devices` hangs or takes more than 2 seconds to execute, unplug the camera and try again
