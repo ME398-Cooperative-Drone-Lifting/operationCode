@@ -7,10 +7,13 @@ Code for Running on Drone-Hub system
 
 ## Option 2: Set up from scratch
 ### Prerequisites (single-time setup) [estimated time: 1-1.5 hours]
-- Install Ubuntu 22.04 on a Raspberry Pi 4B (we have 8 GB RAM, your mileage may vary with less)
-- Extend the USBfs buffer size to 2048 MB:
+- Plug a 64 GB microSD card into your computer
+- Install Ubuntu 22.04 for a Raspberry Pi 4B with the Raspberry Pi imager app
+- Keep the SD attached to your computer, and open the `system-boot` directory
+- Extend the USBfs buffer size to 2048 MB with the following step:
     - Add `usbcore.usbfs_memory_mb=2048` to the `cmdline.txt` file in the `/boot/` directory (using sd card adapter)
-- Boot up the Pi and set it up without WiFi
+- Save the .txt file, eject the card, and insert it into the Pi (shiny 'pins' facing up into the PCB)
+- Boot up the Pi and set it up **without WiFi**
 - Once you're at the main desktop and logged in properly, connect the Pi to WiFi
     - Copy the certificate from the thumb drive onto the Pi desktop
     - Go to settings, select eduroam, select Protected EAP, upload certificate, set MSCHAPv2, add your username and password
