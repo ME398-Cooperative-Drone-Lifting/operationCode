@@ -1,11 +1,6 @@
 # Operation Code
 Code for Running on Drone-Hub system
 
-# To port the DroneKit operation code to Python 3.10 or newer:
-- On macOS, go to `/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/dronekit/init.py` or the equivalent version for your Python installation
-- Change `class Parameters(collections.MutableMapping, HasObservers):` to `class Parameters(collections.abc.MutableMapping, HasObservers):` (add the .abc. between collections and MutableMapping)
-
-
 # To operate the RealSense camera in this framework:
 ## Option 1: Restore from image backup
 - Do not even think about doing this without Benjamin's help!
@@ -22,9 +17,9 @@ Code for Running on Drone-Hub system
     - Username: `netid@u.northwestern.edu`, password: `yourpassword`
 - Update all system programs with `sudo apt-get update && sudo apt-get upgrade`
 - Install Python's `pip` module with `sudo apt-get install -y python3-pip`
-- ~~Install Python 3.7 with the following steps:~~
-    - ~~`sudo add-apt-repository ppa:deadsnakes/ppa`~~
-    - ~~`sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1`~~
+- Install Python 3.7 with the following steps:
+    - `sudo add-apt-repository ppa:deadsnakes/ppa`
+    - `sudo apt install -y python3.7 && sudo apt install -y python3.7-distutils`
 - Install `openssh-server` with `sudo apt-get -y install openssh-server` on the Pi 4
     - Once the SSH server is set up, check the IP address in Settings/WiFi and write it down for recurring use in the execution section
 - Install `video4linux` drivers with `sudo apt-get -y install v4l-utils`, required to assign udev rules
@@ -48,3 +43,7 @@ Code for Running on Drone-Hub system
 - The scripts will *likely* work if `rs-enumerate-devices` yields an immediate response
     - If `rs-enumerate-devices` hangs or takes more than 2 seconds to execute, unplug the camera and try again
 
+
+# To (theoretically) port the DroneKit operation code to Python 3.10 or newer:
+- On macOS, go to `/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/dronekit/init.py` or the equivalent version for your Python installation
+- Change `class Parameters(collections.MutableMapping, HasObservers):` to `class Parameters(collections.abc.MutableMapping, HasObservers):` (add the .abc. between collections and MutableMapping)
