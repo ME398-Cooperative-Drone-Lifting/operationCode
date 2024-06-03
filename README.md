@@ -7,10 +7,13 @@ Code for Running on Drone-Hub system
 
 ## Option 2: Set up from scratch
 ### Prerequisites (single-time setup) [estimated time: 1-1.5 hours]
-- Install Ubuntu 22.04 on a Raspberry Pi 4B (we have 8 GB RAM, your mileage may vary with less)
-- Extend the USBfs buffer size to 2048 MB:
+- Plug a 64 GB microSD card into your computer
+- Install Ubuntu 22.04 for a Raspberry Pi 4B with the Raspberry Pi imager app
+- Keep the SD attached to your computer, and open the `system-boot` directory
+- Extend the USBfs buffer size to 2048 MB with the following step:
     - Add `usbcore.usbfs_memory_mb=2048` to the `cmdline.txt` file in the `/boot/` directory (using sd card adapter)
-- Boot up the Pi and set it up without WiFi
+- Save the .txt file, eject the card, and insert it into the Pi (shiny 'pins' facing up into the PCB)
+- Boot up the Pi and set it up **without WiFi**
 - Once you're at the main desktop and logged in properly, connect the Pi to WiFi
     - Copy the certificate from the thumb drive onto the Pi desktop
     - Go to settings, select eduroam, select Protected EAP, upload certificate, set MSCHAPv2, add your username and password
@@ -23,10 +26,11 @@ Code for Running on Drone-Hub system
 - Install `openssh-server` with `sudo apt-get -y install openssh-server` on the Pi 4
     - Once the SSH server is set up, check the IP address in Settings/WiFi and write it down for recurring use in the execution section
 - Install `video4linux` drivers with `sudo apt-get -y install v4l-utils`, required to assign udev rules
+- Install DroneKit with `python3.7 -m pip install dronekit`
+#### If you are installing the RealSense SDK:
 - Install the RealSense SDK 2.0 on the Pi 4. Follow the instructions [here](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md), taking care not to install the kernel patches.
-- Install opencv-contrib-python (includes additional libraries) with `pip3 install opencv-contrib-python`
-- Install the Python RealSense bindings with `pip3 install pyrealsense2`
-- Install DroneKit with `pip3 install dronekit`
+- Install opencv-contrib-python (includes additional libraries) with `python3.7 -m pip install opencv-contrib-python`
+- Install the Python RealSense bindings with `python3.7 -m pip install pyrealsense2`
 
 ### Execution (must be repeated each time)
 - `ssh` into the Pi with the following argument:
