@@ -16,12 +16,18 @@ from finalScriptHelpers import arm_and_takeoff, send_global_velocity, condition_
 Death = connect('/dev/ttyAMA0', wait_ready=True, baud=57600)
 Taxes = connect('/dev/ttyUSB0', baud=57600)
 
+<<<<<<< HEAD
+rows1 = [] # Rows for storing coarse positioning data
+rows2 = [] # Rows for storing fine positioning data
+lz = (0,0,0) # Landing zone for the drones and payload
+=======
 rows1 =[] # Rows for storing coarse positioning data
+>>>>>>> 007bbff53a8eb8e9c76f3a457f94c1c627726032
 Taxes = open('Taxes_Location.csv')
 type(Taxes)
 
-arm_and_takeoff(1, Taxes)
-arm_and_takeoff(4, Death)
+arm_and_takeoff(1, Taxes) # set to target altitude of 1 [m]
+arm_and_takeoff(4, Death) # set to target altitude of 4 [m]
 Taxes.mode = VehicleMode("STABILIZE")
 Death.mode = VehicleMode("GUIDED")
 time.sleep(1)
@@ -48,7 +54,7 @@ while True:
             print("RealSense Stepping")
             condition_yaw(0, droneID = Death)
             condition_yaw(0, droneID = Taxes)
-            send_global_velocity(float(arucoTrack.depth_point_in_meters_camera_coords[0]), float(arucoTrack.depth_point_in_meters_camera_coords[2]), float(arucoTrack.depth_point_in_meters_camera_coords[2]), 1, Death)
+            send_global_velocity(float(arucoTrack.depth_point[0]), float(arucoTrack.depth_point[2]), float(arucoTrack.depth_point[2]), 1, Death)
 
 print("Attachment Successful. Moving to Landing Zone")
 # goto(5,5)
