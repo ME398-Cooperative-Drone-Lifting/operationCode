@@ -2,11 +2,16 @@ from __future__ import print_function
 
 from dronekit import connect, VehicleMode, LocationGlobalRelative, LocationGlobal, Command
 import time
+import RPi.GPIO as GPIO
 import math
 from pymavlink import mavutil
 import csv
 
 from realsenseOps.arucoTrack import arucoTrack
+
+GPIO.setmode(GPIO.BOARD)
+button_pin = 16 # GPIO pin we set the switch 
+GPIO.setup(button_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 arucoTrack()
 
@@ -180,23 +185,26 @@ time.sleep(1)
 attachment = 0 #starts unattached
 
 while True:
-    if arucoTrack.detection == 0: #Aruco marker not detected
-        csvreader1 = csv.reader(Taxes) #Open the csv file containing Taxes' Location Data
-        for row in csvreader1:
-            rows1.append(row)
-
-        location1 = (rows1[-1])
-        point = LocationGlobalRelative(float(location1[0]), float(location1[1]), float(location1[2]))
-        Death.simple_goto(point, groundspeed=1)
-        print("Locating Taxes")
-        time.sleep(1)
-    elif arucoTrack.detection == 1: #Aruco marker detected
-        print("RealSense Stepping")
-        condition_yaw_death(0)
-        condition_yaw_taxes(0)
-        send_global_velocity_death(float(arucoTrack.depth_point_in_meters_camera_coords[0]),float(arucoTrack.depth_point_in_meters_camera_coords[2]),float(arucoTrack.depth_point_in_meters_camera_coords[2]),1)
-    elif attachment == 1: #Limit switch has indicated attachment
+    button_state = GPIO.input(button_pin)
+    if button_state == False:
+        # what to do when button is pressed
         break
+    else:
+        if arucoTrack.detection == 0: #Aruco marker not detected
+            csvreader1 = csv.reader(Taxes) #Open the csv file containing Taxes' Location Data
+            for row in csvreader1:
+                rows1.append(row)
+
+            location1 = (rows1[-1])
+            point = LocationGlobalRelative(float(location1[0]), float(location1[1]), float(location1[2]))
+            Death.simple_goto(point, groundspeed=1)
+            print("Locating Taxes")
+            time.sleep(1)
+        elif arucoTrack.detection == 1: #Aruco marker detected
+            print("RealSense Stepping")
+            condition_yaw_death(0)
+            condition_yaw_taxes(0)
+            send_global_velocity_death(float(arucoTrack.depth_point_in_meters_camera_coords[0]),float(arucoTrack.depth_point_in_meters_camera_coords[2]),float(arucoTrack.depth_point_in_meters_camera_coords[2]),1)
 
 print("Attachment Successful. Moving to Landing Zone")
 #goto(5,5)
