@@ -16,13 +16,7 @@ from finalScriptHelpers import arm_and_takeoff, send_global_velocity, condition_
 Death = connect('/dev/ttyAMA0', wait_ready=True, baud=57600)
 Taxes = connect('/dev/ttyUSB0', baud=57600)
 
-<<<<<<< HEAD
-rows1 = [] # Rows for storing coarse positioning data
-rows2 = [] # Rows for storing fine positioning data
-lz = (0,0,0) # Landing zone for the drones and payload
-=======
 rows1 =[] # Rows for storing coarse positioning data
->>>>>>> 007bbff53a8eb8e9c76f3a457f94c1c627726032
 Taxes = open('Taxes_Location.csv')
 type(Taxes)
 
