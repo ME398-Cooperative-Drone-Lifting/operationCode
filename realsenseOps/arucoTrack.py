@@ -6,9 +6,9 @@ import numpy as np
 import cv2
 # import time
 # import math
-from arucoHelpers_mult import CreateDetector, GetRelativeYaw
-from realsenseStartup_mult import StartRealSense
-from vectorHelpers_mult import Center
+from realsenseOps.arucoHelpers_mult import CreateDetector, GetRelativeYaw
+from realsenseOps.realsenseStartup_mult import StartRealSense
+from realsenseOps.vectorHelpers_mult import Center
 
 from typing import List, Tuple, Optional, Any
 
