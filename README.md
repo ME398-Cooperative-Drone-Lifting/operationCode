@@ -3,7 +3,7 @@ Code for Running on Drone-Hub system
 
 # To operate the RealSense camera in this framework:
 ## Option 1: Restore from image backup
-- Do not even think about doing this without Benjamin's help!
+- **Do not even think about doing this without Benjamin's help!**
 
 ## Option 2: Set up from scratch
 ### Prerequisites (single-time setup) [estimated time: 1-1.5 hours]
@@ -14,7 +14,8 @@ Code for Running on Drone-Hub system
     - Add `usbcore.usbfs_memory_mb=2048` to the `cmdline.txt` file in the `/boot/` directory (using sd card adapter)
 - Save the .txt file, eject the card, and insert it into the Pi (shiny 'pins' facing up into the PCB)
 - Boot up the Pi and set it up **without WiFi**
-- Once you're at the main desktop and logged in properly, connect the Pi to WiFi
+- Once you're at the main desktop and logged in properly, begin setting up WiFi on the Pi
+    - Using a personal computer already connected to WiFi, download the certificate from [here](https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1113) and copy it to a USB-A type thumb drive
     - Copy the certificate from the thumb drive onto the Pi desktop
     - Go to settings, select eduroam, select Protected EAP, upload certificate, set MSCHAPv2, add your username and password
     - Username: `netid@u.northwestern.edu`, password: `yourpassword`
@@ -40,11 +41,11 @@ Code for Running on Drone-Hub system
 - Run `rs-enumerate-devices` to prime the RealSense USB buffer (mysterious, please do not ask why this works)
 - Run the DroneKit code OR directly run the RealSense script with `python3 arucoTrack.py`
 - If necessary, close the script with CTRL+C
-- If you want to run either script again, you *must* run `rs-enumerate-devices` again before execution!
+- If you want to run either script again, you **must** run `rs-enumerate-devices` again before execution!
 
 ### Troubleshooting
 - If the connection times out, unplug the RealSense camera, wait 3-5 seconds, and then replug in the other USB 3.0 port
-- The scripts will *likely* work if `rs-enumerate-devices` yields an immediate response
+- The scripts will **likely** work if `rs-enumerate-devices` yields an immediate response
     - If `rs-enumerate-devices` hangs or takes more than 2 seconds to execute, unplug the camera and try again
 
 
