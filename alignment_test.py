@@ -7,7 +7,7 @@ import csv
 from realsenseOps.arucoTrack import arucoTrack
 from finalScriptHelpers import arm_and_takeoff, send_global_velocity, condition_yaw
 
-Death = connect('/dev/ttyAMA0', wait_ready=True, baud=57600)
+Death = connect('/dev/ttyAMA0', wait_ready=True, baud=52100)
 
 rows1 =[] # Rows for storing coarse positioning data
 
