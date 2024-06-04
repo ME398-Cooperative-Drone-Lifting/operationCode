@@ -5,6 +5,11 @@ Code for Running on Drone-Hub system
 ## Option 1: Restore from image backup
 - **Do not even think about doing this without Benjamin's help!**
 
+
+# Disable BT and add UART for dronekit
+dtoverlay=disable-bt
+enable_uart=1
+
 ## Option 2: Set up from scratch
 ### Prerequisites (single-time setup) [estimated time: 1-1.5 hours]
 - Plug a 64 GB microSD card into your computer
