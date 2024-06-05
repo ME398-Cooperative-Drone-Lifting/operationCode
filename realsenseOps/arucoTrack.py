@@ -64,7 +64,7 @@ def process_markers(corners: List[np.ndarray], ids: List[int], aligned_depth_fra
             markerInfo = [ids[i], marker_center, depth_point, angle]
             markerInfoList.append(markerInfo)
 
-    return markedImage, markerInfoList
+    return markedImage, markerInfoList, depth_point
 
 def display_image(disp_image: np.ndarray) -> None:
     cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
@@ -121,10 +121,9 @@ def arucoTrack() -> Tuple: # figure out what kind of outputs we want...float loc
             corners, ids, rejected = detect_markers(arucoimage, arucoDict, arucoParams)
 
             if ids is not None and len(ids) > 0:
-                markedImage, markerInfoList = process_markers(corners, ids, aligned_depth_frame, depth_intrin, arucoimage)
+                markedImage, markerInfoList, depth_point = process_markers(corners, ids, aligned_depth_frame, depth_intrin, arucoimage)
                 detection = 1
                 
-
                 # Print marker information to console for testing/status checking
                 # Structure: [ids[i], marker_center, depth_point_in_meters_camera_coords, angle]
                 print('ID: {}, Center: {}, Depth: {}, Angle: {}'.format(markerInfoList[0][0], markerInfoList[0][1], markerInfoList[0][2], markerInfoList[0][3]))
