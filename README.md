@@ -9,6 +9,10 @@
 - Select the .img file you downloaded from the Drive
 - Start flashing the SD card! This will take about an hour.
 - Once done, eject the SD card and insert into the Pi. The RealSense and DroneKit bindings should be set up.
+- If the eject fails with an obscure message about "No object for D-Bus interface", do the following:
+    - `sudo apt-get install gparted && gparted`
+    - Select the disk (likely `sdb`) in Gparted
+    - Close Gparted and try again
 
 ## Option 2: Set up from scratch [estimated time: 1-1.5 hours]
 - Plug a 64 GB microSD card into your computer
